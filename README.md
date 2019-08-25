@@ -35,7 +35,7 @@ $ pip install soynlp
 ## Python version
 
 - Python 3.5+ 를 지원합니다. 3.x 에서 주로 작업을 하기 때문에 3.x 로 이용하시길 권장합니다.
-- Python 2.x 는 모든 기능에 대해서 테스트가 끝나지 않았습니다. 
+- Python 2.x 는 모든 기능에 대해서 테스트가 끝나지 않았습니다.
 
 ## Requires
 
@@ -48,7 +48,7 @@ $ pip install soynlp
 
 명사 추출을 하기 위해 여러 시도를 한 결과, v1, news, v2 세 가지 버전이 만들어졌습니다. 가장 좋은 성능을 보이는 것은 v2 입니다.
 
-WordExtractor 는 통계를 이용하여 단어의 경계 점수를 학습하는 것일 뿐, 각 단어의 품사를 판단하지는 못합니다. 때로는 각 단어의 품사를 알아야 하는 경우가 있습니다. 또한 다른 품사보다도 명사에서 새로운 단어가 가장 많이 만들어집니다. 명사의 오른쪽에는 -은, -는, -라는, -하는 처럼 특정 글자들이 자주 등장합니다. 문서의 어절 (띄어쓰기 기준 유닛)에서 왼쪽에 위치한 substring 의 오른쪽에 어떤 글자들이 등장하는지 분포를 살펴보면 명사인지 아닌지 판단할 수 있습니다. soynlp 에서는 두 가지 종류의 명사 추출기를 제공합니다. 둘 모두 개발 단계이기 때문에 어떤 것이 더 우수하다 말하기는 어렵습니다만, NewsNounExtractor 가 좀 더 많은 기능을 포함하고 있습니다. 추후, 명사 추출기는 하나의 클래스로 정리될 예정입니다. 
+WordExtractor 는 통계를 이용하여 단어의 경계 점수를 학습하는 것일 뿐, 각 단어의 품사를 판단하지는 못합니다. 때로는 각 단어의 품사를 알아야 하는 경우가 있습니다. 또한 다른 품사보다도 명사에서 새로운 단어가 가장 많이 만들어집니다. 명사의 오른쪽에는 -은, -는, -라는, -하는 처럼 특정 글자들이 자주 등장합니다. 문서의 어절 (띄어쓰기 기준 유닛)에서 왼쪽에 위치한 substring 의 오른쪽에 어떤 글자들이 등장하는지 분포를 살펴보면 명사인지 아닌지 판단할 수 있습니다. soynlp 에서는 두 가지 종류의 명사 추출기를 제공합니다. 둘 모두 개발 단계이기 때문에 어떤 것이 더 우수하다 말하기는 어렵습니다만, NewsNounExtractor 가 좀 더 많은 기능을 포함하고 있습니다. 추후, 명사 추출기는 하나의 클래스로 정리될 예정입니다.
 
 ### Noun Extractor ver 1 & News Noun Extractor
 
@@ -62,7 +62,7 @@ noun_extractor = NewsNounExtractor()
 nouns = noun_extractor.train_extract(sentences) # list of str like
 ```
 
-2016-10-20 의 뉴스로부터 학습한 명사의 예시입니다. 
+2016-10-20 의 뉴스로부터 학습한 명사의 예시입니다.
 
     덴마크  웃돈  너무너무너무  가락동  매뉴얼  지도교수
     전망치  강구  언니들  신산업  기뢰전  노스
@@ -75,7 +75,7 @@ nouns = noun_extractor.train_extract(sentences) # list of str like
     인터폰  원화  단기간  편곡  무산  외국인들
     세무조사  석유화학  워킹  원피스  서장  공범
 
-더 자세한 설명은 [튜토리얼][nounextractor-v1_usage]에 있습니다. 
+더 자세한 설명은 [튜토리얼][nounextractor-v1_usage]에 있습니다.
 
 ### Noun Extractor ver 2
 
@@ -92,7 +92,7 @@ noun_extractor = LRNounExtractor_v2(verbose=True)
 nouns = noun_extractor.train_extract(sents)
 ```
 
-추출된 nouns 는 {str:namedtuple} 형식입니다. 
+추출된 nouns 는 {str:namedtuple} 형식입니다.
 
 ```python
 print(nouns['뉴스']) # NounScore(frequency=4319, score=1.0)
@@ -129,22 +129,22 @@ noun_extractor.lrgraph.get_r('아이오아이')
 
 더 자세한 설명은 [튜토리얼 2][nounextractor-v2_usage]에 있습니다.
 
-## Word Extraction 
+## Word Extraction
 
-2016 년 10월의 연예기사 뉴스에는 '트와이스', '아이오아이' 와 같은 단어가 존재합니다. 하지만 말뭉치를 기반으로 학습된 품사 판별기 / 형태소 분석기는 이런 단어를 본 적이 없습니다. 늘 새로운 단어가 만들어지기 때문에 학습하지 못한 단어를 제대로 인식하지 못하는 미등록단어 문제 (out of vocabulry, OOV) 가 발생합니다. 하지만 이 시기에 작성된 여러 개의 연예 뉴스 기사를 읽다보면 '트와이스', '아이오아이' 같은 단어가 등장함을 알 수 있고, 사람은 이를 학습할 수 있습니다. 문서집합에서 자주 등장하는 연속된 단어열을 단어라 정의한다면, 우리는 통계를 이용하여 이를 추출할 수 있습니다. 통계 기반으로 단어(의 경계)를 학습하는 방법은 다양합니다. soynlp는 그 중, Cohesion score, Branching Entropy, Accessor Variety 를 제공합니다. 
+2016 년 10월의 연예기사 뉴스에는 '트와이스', '아이오아이' 와 같은 단어가 존재합니다. 하지만 말뭉치를 기반으로 학습된 품사 판별기 / 형태소 분석기는 이런 단어를 본 적이 없습니다. 늘 새로운 단어가 만들어지기 때문에 학습하지 못한 단어를 제대로 인식하지 못하는 미등록단어 문제 (out of vocabulry, OOV) 가 발생합니다. 하지만 이 시기에 작성된 여러 개의 연예 뉴스 기사를 읽다보면 '트와이스', '아이오아이' 같은 단어가 등장함을 알 수 있고, 사람은 이를 학습할 수 있습니다. 문서집합에서 자주 등장하는 연속된 단어열을 단어라 정의한다면, 우리는 통계를 이용하여 이를 추출할 수 있습니다. 통계 기반으로 단어(의 경계)를 학습하는 방법은 다양합니다. soynlp는 그 중, Cohesion score, Branching Entropy, Accessor Variety 를 제공합니다.
 
 ```python
 from soynlp.word import WordExtractor
 
 word_extractor = WordExtractor(min_frequency=100,
-    min_cohesion_forward=0.05, 
+    min_cohesion_forward=0.05,
     min_right_branching_entropy=0.0
 )
 word_extractor.train(sentences) # list of str or like
 words = word_extractor.extract()
 ```
 
-words 는 Scores 라는 namedtuple 을 value 로 지니는 dict 입니다. 
+words 는 Scores 라는 namedtuple 을 value 로 지니는 dict 입니다.
 
 ```python
 words['아이오아이']
@@ -160,7 +160,7 @@ Scores(cohesion_forward=0.30063636035733476,
 )
 ```
 
-2016-10-26 의 뉴스 기사로부터 학습한 단어 점수 (cohesion * branching entropy) 기준으로 정렬한 예시입니다. 
+2016-10-26 의 뉴스 기사로부터 학습한 단어 점수 (cohesion * branching entropy) 기준으로 정렬한 예시입니다.
 
     단어   (빈도수, cohesion, branching entropy)
 
@@ -195,16 +195,16 @@ Scores(cohesion_forward=0.30063636035733476,
     20      (59317, 0.667, 1.171)
     스포츠    (3422, 0.428, 1.604)
 
-자세한 내용은 [word extraction tutorial][wordextraction_lecture] 에 있습니다. 
-현재 버전에서 제공하는 기능은 다음과 같습니다. 
+자세한 내용은 [word extraction tutorial][wordextraction_lecture] 에 있습니다.
+현재 버전에서 제공하는 기능은 다음과 같습니다.
 
 ## Tokenizer
 
-WordExtractor 로부터 단어 점수를 학습하였다면, 이를 이용하여 단어의 경계를 따라 문장을 단어열로 분해할 수 있습니다. soynlp 는 세 가지 토크나이저를 제공합니다. 띄어쓰기가 잘 되어 있다면 LTokenizer 를 이용할 수 있습니다. 한국어 어절의 구조를 "명사 + 조사" 처럼 "L + [R]" 로 생각합니다. 
+WordExtractor 로부터 단어 점수를 학습하였다면, 이를 이용하여 단어의 경계를 따라 문장을 단어열로 분해할 수 있습니다. soynlp 는 세 가지 토크나이저를 제공합니다. 띄어쓰기가 잘 되어 있다면 LTokenizer 를 이용할 수 있습니다. 한국어 어절의 구조를 "명사 + 조사" 처럼 "L + [R]" 로 생각합니다.
 
 ### LTokenizer
 
-L parts 에는 명사/동사/형용사/부사가 위치할 수 있습니다. 어절에서 L 만 잘 인식한다면 나머지 부분이 R parts 가 됩니다. LTokenizer 에는 L parts 의 단어 점수를 입력합니다. 
+L parts 에는 명사/동사/형용사/부사가 위치할 수 있습니다. 어절에서 L 만 잘 인식한다면 나머지 부분이 R parts 가 됩니다. LTokenizer 에는 L parts 의 단어 점수를 입력합니다.
 
 ```python
 from soynlp.tokenizer import LTokenizer
@@ -263,7 +263,7 @@ tokenizer = LTokenizer(scores=combined_scores)
 
 ### MaxScoreTokenizer
 
-띄어쓰기가 제대로 지켜지지 않은 데이터라면, 문장의 띄어쓰기 기준으로 나뉘어진 단위가 L + [R] 구조라 가정할 수 없습니다. 하지만 사람은 띄어쓰기가 지켜지지 않은 문장에서 익숙한 단어부터 눈에 들어옵니다. 이 과정을 모델로 옮긴 MaxScoreTokenizer 역시 단어 점수를 이용합니다. 
+띄어쓰기가 제대로 지켜지지 않은 데이터라면, 문장의 띄어쓰기 기준으로 나뉘어진 단위가 L + [R] 구조라 가정할 수 없습니다. 하지만 사람은 띄어쓰기가 지켜지지 않은 문장에서 익숙한 단어부터 눈에 들어옵니다. 이 과정을 모델로 옮긴 MaxScoreTokenizer 역시 단어 점수를 이용합니다.
 
 ```python
 from soynlp.tokenizer import MaxScoreTokenizer
@@ -274,16 +274,16 @@ tokenizer = MaxScoreTokenizer(scores=scores)
 print(tokenizer.tokenize('난파스타가좋아요'))
 # ['난', '파스타', '가', '좋아', '요']
 
-print(tokenizer.tokenize('난파스타가 좋아요'), flatten=False)
+print(tokenizer.tokenize('난파스타가 좋아요', flatten=False))
 # [[('난', 0, 1, 0.0, 1), ('파스타', 1, 4, 0.7, 3),  ('가', 4, 5, 0.0, 1)],
 #  [('좋아', 0, 2, 0.5, 2), ('요', 2, 3, 0.0, 1)]]
 ```
 
-MaxScoreTokenizer 역시 WordExtractor 의 결과를 이용하실 때에는 위의 예시처럼 적절히 scores 를 만들어 사용합니다. 이미 알려진 단어 사전이 있다면 이 단어들은 다른 어떤 단어보다도 더 큰 점수를 부여하면 그 단어는 토크나이저가 하나의 단어로 잘라냅니다. 
+MaxScoreTokenizer 역시 WordExtractor 의 결과를 이용하실 때에는 위의 예시처럼 적절히 scores 를 만들어 사용합니다. 이미 알려진 단어 사전이 있다면 이 단어들은 다른 어떤 단어보다도 더 큰 점수를 부여하면 그 단어는 토크나이저가 하나의 단어로 잘라냅니다.
 
 ### RegexTokenizer
 
-규칙 기반으로도 단어열을 만들 수 있습니다. 언어가 바뀌는 부분에서 우리는 단어의 경계를 인식합니다. 예를 들어 "아이고ㅋㅋㅜㅜ진짜?" 는 [아이고, ㅋㅋ, ㅜㅜ, 진짜, ?]로 쉽게 단어열을 나눕니다. 
+규칙 기반으로도 단어열을 만들 수 있습니다. 언어가 바뀌는 부분에서 우리는 단어의 경계를 인식합니다. 예를 들어 "아이고ㅋㅋㅜㅜ진짜?" 는 [아이고, ㅋㅋ, ㅜㅜ, 진짜, ?]로 쉽게 단어열을 나눕니다.
 
 ```python
 from soynlp.tokenizer import RegexTokenizer
@@ -299,16 +299,16 @@ print(tokenizer.tokenize('숫자123이영어abc에섞여있으면ㅋㅋ잘리겠
 
 ## Part of Speech Tagger
 
-단어 사전이 잘 구축되어 있다면, 이를 이용하여 사전 기반 품사 판별기를 만들 수 있습니다. 단, 형태소분석을 하는 것이 아니기 때문에 '하는', '하다', '하고'는 모두 동사에 해당합니다. Lemmatizer 는 현재 개발/정리 중입니다. 
+단어 사전이 잘 구축되어 있다면, 이를 이용하여 사전 기반 품사 판별기를 만들 수 있습니다. 단, 형태소분석을 하는 것이 아니기 때문에 '하는', '하다', '하고'는 모두 동사에 해당합니다. Lemmatizer 는 현재 개발/정리 중입니다.
 
 ```python
 pos_dict = {
-    'Adverb': {'너무', '매우'}, 
+    'Adverb': {'너무', '매우'},
     'Noun': {'너무너무너무', '아이오아이', '아이', '노래', '오', '이', '고양'},
     'Josa': {'는', '의', '이다', '입니다', '이', '이는', '를', '라', '라는'},
     'Verb': {'하는', '하다', '하고'},
     'Adjective': {'예쁜', '예쁘다'},
-    'Exclamation': {'우와'}    
+    'Exclamation': {'우와'}
 }
 
 from soynlp.postagger import Dictionary
@@ -318,7 +318,7 @@ from soynlp.postagger import SimpleTagger
 from soynlp.postagger import UnknowLRPostprocessor
 
 dictionary = Dictionary(pos_dict)
-generator = LRTemplateMatcher(dictionary)    
+generator = LRTemplateMatcher(dictionary)
 evaluator = LREvaluator()
 postprocessor = UnknowLRPostprocessor()
 tagger = SimpleTagger(generator, evaluator, postprocessor)
@@ -334,11 +334,11 @@ print(tagger.tag(sent))
 #  ('!!', None)]
 ```
 
-더 자세한 사용법은 [사용법 튜토리얼][tagger_usage] 에 기술되어 있으며, [개발과정 노트][tagger_lecture]는 여기에 기술되어 있습니다. 
+더 자세한 사용법은 [사용법 튜토리얼][tagger_usage] 에 기술되어 있으며, [개발과정 노트][tagger_lecture]는 여기에 기술되어 있습니다.
 
 ## Vetorizer
 
-토크나이저를 학습하거나, 혹은 학습된 토크나이저를 이용하여 문서를 sparse matrix 로 만듭니다. minimum / maximum of term frequency / document frequency 를 조절할 수 있습니다. Verbose mode 에서는 현재의 벡터라이징 상황을 print 합니다. 
+토크나이저를 학습하거나, 혹은 학습된 토크나이저를 이용하여 문서를 sparse matrix 로 만듭니다. minimum / maximum of term frequency / document frequency 를 조절할 수 있습니다. Verbose mode 에서는 현재의 벡터라이징 상황을 print 합니다.
 
 ```python
 vectorizer = BaseVectorizer(
@@ -380,7 +380,7 @@ vectorizer.decode_from_bow({3: 1, 258: 1, 428: 1, 1814: 1})
 # {'뉴스': 1, '는': 1, '오늘': 1, '이것이': 1}
 ```
 
-dict 형식의 bag of words 로도 encoding 이 가능합니다. 
+dict 형식의 bag of words 로도 encoding 이 가능합니다.
 
 ```python
 vectorizer.encode_a_doc_to_list('오늘의 뉴스는 매우 심각합니다')
@@ -396,7 +396,7 @@ vectorizer.decode_from_list([258, 4, 428, 3, 333])
 
 ## Normalizer
 
-대화 데이터, 댓글 데이터에 등장하는 반복되는 이모티콘의 정리 및 한글, 혹은 텍스트만 남기기 위한 함수를 제공합니다. 
+대화 데이터, 댓글 데이터에 등장하는 반복되는 이모티콘의 정리 및 한글, 혹은 텍스트만 남기기 위한 함수를 제공합니다.
 
 ```python
 from soynlp.normalizer import *
@@ -458,11 +458,11 @@ pmi_dok = pmi(
 ### Slides
 
 - [slide files][unkornlp_pdf]에 알고리즘들의 원리 및 설명을 적어뒀습니다. 데이터야놀자에서 발표했던 자료입니다.
-- [textmining tutorial][textmining-tutorial] 을 만들고 있습니다. soynlp project 에서 구현 중인 알고리즘들의 설명 및 텍스트 마이닝에 이용되는 머신 러닝 방법들을 설명하는 slides 입니다. 
+- [textmining tutorial][textmining-tutorial] 을 만들고 있습니다. soynlp project 에서 구현 중인 알고리즘들의 설명 및 텍스트 마이닝에 이용되는 머신 러닝 방법들을 설명하는 slides 입니다.
 
 ### Blogs
 
-- [github io blog][lovitio] 에서 [slides][textmining-tutorial] 에 있는 내용들의 텍스트 설명 글들을 올리고 있습니다. Slides 의 내용에 대해 더 자세하게 보고 싶으실 때 읽으시길 권합니다. 
+- [github io blog][lovitio] 에서 [slides][textmining-tutorial] 에 있는 내용들의 텍스트 설명 글들을 올리고 있습니다. Slides 의 내용에 대해 더 자세하게 보고 싶으실 때 읽으시길 권합니다.
 
 
 ## 함께 이용하면 좋은 라이브러리들
@@ -475,21 +475,21 @@ pmi_dok = pmi(
 
 ### soyspacing
 
-띄어쓰기 오류가 있을 경우 이를 제거하면 텍스트 분석이 쉬워질 수 있습니다. 분석하려는 데이터를 기반으로 띄어쓰기 엔진을 학습하고, 이를 이용하여 띄어쓰기 오류를 교정합니다. 
+띄어쓰기 오류가 있을 경우 이를 제거하면 텍스트 분석이 쉬워질 수 있습니다. 분석하려는 데이터를 기반으로 띄어쓰기 엔진을 학습하고, 이를 이용하여 띄어쓰기 오류를 교정합니다.
 
 - https://github.com/lovit/soyspacing
 - pip install soyspacing
 
 ### KR-WordRank
 
-토크나이저나 단어 추출기를 학습할 필요없이, HITS algorithm 을 이용하여 substring graph 에서 키워드를 추출합니다. 
+토크나이저나 단어 추출기를 학습할 필요없이, HITS algorithm 을 이용하여 substring graph 에서 키워드를 추출합니다.
 
 - https://github.com/lovit/KR-WordRank
 - pip install krwordrank
 
 ### soykeyword
 
-키워드 추출기입니다. Logistic Regression 을 이용하는 모델과 통계 기반 모델, 두 종류의 키워드 추출기를 제공합니다. scipy.sparse 의 sparse matrix 형식과 텍스트 파일 형식을 지원합니다. 
+키워드 추출기입니다. Logistic Regression 을 이용하는 모델과 통계 기반 모델, 두 종류의 키워드 추출기를 제공합니다. scipy.sparse 의 sparse matrix 형식과 텍스트 파일 형식을 지원합니다.
 
 - https://github.com/lovit/soykeyword
 - pip install soykeyword
